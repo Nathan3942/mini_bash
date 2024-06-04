@@ -6,13 +6,13 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:52:31 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/03 19:29:31 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:04:17 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-static char	*get_input()
+static char	*get_input(void)
 {
 	char	*raw_input;
 	char	*input;
@@ -28,15 +28,15 @@ void	init_data(t_params **para, t_put **put, t_data **data)
 	*para = (t_params *)malloc (sizeof(t_params));
 	*put = (t_put *) malloc (sizeof(t_put));
 	*data = NULL;
-    *data = malloc(sizeof(t_data));
+	*data = malloc(sizeof(t_data));
 	(*put)->input = NULL;
 	(*put)->output = NULL;
 }
 
 void	loop_shell(t_params *para, t_env *lstenv, t_put *put, t_data *data)
 {
-	int	error;
-	char *input;
+	int		error;
+	char	*input;
 
 	while (1)
 	{
@@ -51,12 +51,13 @@ void	loop_shell(t_params *para, t_env *lstenv, t_put *put, t_data *data)
 			{
 				print_all(&para, &lstenv, &put);
 				add_var_status(&lstenv, ms_exec_loop(data, para, put, &lstenv));
+				if (ft_strequal(para->com[0], "exit") == 0 && printf("exit\n"))
+					exit(EXIT_SUCCESS);
 			}
 			else
 				print_error(error);
-			if (ft_strequal(para->com[0], "exit") == 0 && printf("exit\n"))
-				ms_exit(para, put, &lstenv, &data);
-			free_all(&para, &put, &data);
+			if (error == 0)
+				free_all(&para, &put, &data);
 		}
 	}
 }

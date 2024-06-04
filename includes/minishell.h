@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:51:36 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/03 17:28:17 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:15:08 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,5 +125,6 @@ t_env	*ft_lstlast_env(t_env *lst);
 void	ft_lstadd_back_env(t_env **lst, t_env *new);
 int		ft_lstsize_env(t_env *lst);
 void	add_var_status(t_env **env, int status);
+char	*ft_strdup_quote(const char *s1);
 
 #endif

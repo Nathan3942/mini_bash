@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 04:41:08 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/03 16:33:42 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:38:13 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,11 +119,6 @@ void	set_var(t_params **para, t_env **env)
 	{
 		if ((*para)->com[i][z] == '\'')
 			break ;
-		if ((*para)->com[i][z] == '$')
-		{
-			if (count_wd_var((*para)->com[i]) == 1)
-				set_var_beg(para, env);
-		}
 		i++;
 	}
 	set_var_mid(para, env);

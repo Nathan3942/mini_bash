@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 16:11:22 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/05/29 13:34:05 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:15:19 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,10 @@ char	**set_com(t_params *para, int len, t_put *put)
 			if (ft_strstrbool(para->com[i], put->input) == 1
 				&& ft_strstrbool(para->com[i], put->output) == 1)
 			{
-				com[z] = ft_strdup(para->com[i]);
+				if (para->com[i][0] == '\"' || para->com[i][0] == '\'')
+					com[z] = ft_strdup_quote(para->com[i]);
+				else
+					com[z] = ft_strdup(para->com[i]);
 				z++;
 			}
 		}
@@ -107,10 +110,11 @@ int	set_para(t_params **param, char *input, t_env **env, t_put **put)
 	t_params	*para;
 	int			i;
 
-	para = *param;
+	
 	inp_sep = split_para(input);
 	if (ft_error(inp_sep) != 0)
 		return (ft_error(inp_sep));
+	para = *param;
 	init_com(&para, inp_sep, put, env);
 	para->next = NULL;
 	i = 0;

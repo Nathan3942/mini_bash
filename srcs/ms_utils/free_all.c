@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 09:33:51 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/03 15:27:46 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:05:25 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	free_para(t_params **para)
 
 	i = 0;
 	if (!(*para))
+		return ;
+	if (!(*para)->com)
 	{
 		free((*para));
 		return ;
