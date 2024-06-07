@@ -6,39 +6,39 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 04:41:08 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/04 14:38:13 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/05 17:52:42 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	set_var_beg(t_params **para, t_env **env)
-{
-	t_params	*headp;
-	char		*var;
-	int			i;
+// static void	set_var_beg(t_params **para, t_env **env)
+// {
+// 	t_params	*headp;
+// 	char		*var;
+// 	int			i;
 
-	var = NULL;
-	headp = *para;
-	i = 0;
-	while (headp->com[i] != NULL)
-	{	
-		if (headp->com[i][0] == '$')
-		{
-			var = recherche_env(headp->com[i], env);
-			if (var[0] == ';' && ft_strlen(var) == 1)
-				var = "";
-			if (var != NULL)
-			{
-				free(headp->com[i]);
-				headp->com[i] = ft_strdup(var);
-			}
-		}
-		i++;
-	}
-}
+// 	var = NULL;
+// 	headp = *para;
+// 	i = 0;
+// 	while (headp->com[i] != NULL)
+// 	{	
+// 		if (headp->com[i][0] == '$')
+// 		{
+// 			var = recherche_env(headp->com[i], env);
+// 			if (var[0] == ';' && ft_strlen(var) == 1)
+// 				var = "";
+// 			if (var != NULL)
+// 			{
+// 				free(headp->com[i]);
+// 				headp->com[i] = ft_strdup(var);
+// 			}
+// 		}
+// 		i++;
+// 	}
+// }
 
-static char	**mid_var_env(char **split_str, t_env **env)
+char	**mid_var_env(char **split_str, t_env **env)
 {
 	int		i;
 	char	*var;
@@ -61,7 +61,7 @@ static char	**mid_var_env(char **split_str, t_env **env)
 	return (split_str);
 }
 
-static char	*mid_var(char *str, t_env **env)
+char	*mid_var(char *str, t_env **env)
 {
 	char	**split_str;
 	char	*var;

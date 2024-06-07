@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 04:04:52 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/03 17:01:30 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:24:47 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,23 @@ char	*ft_strdup_nl(const char *s1)
 	return (dup);
 }
 
-char	*heredoc(char *exit)
+static char	*heredoc(char *exit, t_env **env)
 {
 	char	*doctmp;
 	char	*res;
 	char	*doc;
 
 	doctmp = NULL;
+	res = NULL;
 	while (1)
 	{
 		doc = readline("heredoc> ");
-		if (ft_strstr(doc, exit) == doc && ft_strlen(doc) == ft_strlen(exit))
+		if (ft_strequal(doc, exit) == 0)
 		{
+			if (doctmp == NULL)
+				return (res);
 			res = ft_strdup_nl(doctmp);
+			res = mid_var(res, env);
 			free(doctmp);
 			break ;
 		}
@@ -55,7 +59,7 @@ char	*heredoc(char *exit)
 	return (res);
 }
 
-void	ft_doc(t_params **para)
+void	ft_doc(t_params **para, t_env **env)
 {
 	t_params	*head;
 	char		*tmp;
@@ -73,12 +77,10 @@ void	ft_doc(t_params **para)
 				exit = head->com[i + 1];
 			i++;
 		}
-		tmp = heredoc(exit);
+		tmp = heredoc(exit, env);
+		if (tmp == NULL)
+			return ;
 		i = open(exit, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		ft_putstr_fd(tmp, i);
-		// if (tmp != NULL)
-		// 	head->com[--i] = tmp;
-		// else
-		// 	head->com[--i] = NULL;
 	}
 }

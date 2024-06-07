@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:02:34 by ichpakov          #+#    #+#             */
-/*   Updated: 2024/06/03 19:18:24 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:07:24 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	ms_redir_exec(t_data *data, t_params *cmds, t_put *puts, t_env **env)
  			ms_output(data, puts, 1);
  		else if (cmds->out_red == sortie2)
  			ms_output(data, puts, 2);
-		ms_exec_class(cmds, puts, env, &data);
+		ms_exec_class(cmds, env, &data);
  		exec_error(2);
  	}
 	waitpid(data->pid, &status, 0);

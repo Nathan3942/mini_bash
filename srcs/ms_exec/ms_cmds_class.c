@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 23:17:22 by ichpakov          #+#    #+#             */
-/*   Updated: 2024/06/04 14:19:39 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:56:44 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	echo_checker(char **cmd)
 		return (0);
 	while (ft_strcmp(cmd[i], "-n"))
 		i++;
-	if (cmd[i][0] == '-')
+	if (cmd[i][0] == '-' && cmd[i][1] == '\0')
 		return (0);
 	return (i);
 }
@@ -76,7 +76,7 @@ char	**get_env(t_env **env)
 	return (ex_env);
 }
 
-int	ms_exec_class(t_params *cmds, t_put *put, t_env **env, t_data **data)
+int	ms_exec_class(t_params *cmds, t_env **env, t_data **data)
 {
 	if (ft_strequal(cmds->com[0], "echo") == 0 && cmds->com[1] != NULL)
 	{
@@ -90,7 +90,7 @@ int	ms_exec_class(t_params *cmds, t_put *put, t_env **env, t_data **data)
 	}
 	if (ft_strequal(cmds->com[0], "cd") == 0)
 		ms_cd(cmds, env);
-	else if (ft_strequal(cmds->com[0], "pdw") == 0)
+	else if (ft_strequal(cmds->com[0], "pwd") == 0)
 		ms_pwd();
 	else if (ft_strequal(cmds->com[0], "export") == 0)
 		ms_export(cmds, env);
@@ -99,7 +99,7 @@ int	ms_exec_class(t_params *cmds, t_put *put, t_env **env, t_data **data)
 	else if (ft_strequal(cmds->com[0], "env") == 0)
 		ms_env(env);
 	else if (ft_strequal(cmds->com[0], "exit") == 0)
-		ms_exit(cmds, put, env, data);
+		ms_exit(cmds, env, data);
 	else
 		ms_exec(cmds, get_env(env));
 	return (0);

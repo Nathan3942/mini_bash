@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 04:52:22 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/03 18:55:52 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/05 17:44:51 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*recherche_env(char *str, t_env **env)
 	{
 		if (ft_strequal(head->env_name, str + 1) == 0)
 		{
-			printf("%s\n", head->env_name);
+			//printf("%s\n", head->env_name);
 			return (head->env_value);
 		}
 		head = head->next;

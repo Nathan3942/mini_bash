@@ -1,0 +1,17 @@
+cd ~/42
+a faire
+
+
+unset path
+ls
+==19830==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x00010b95580e bp 0x7ff7b45b6340 sp 0x7ff7b45b62d0 T0)
+==19830==The signal is caused by a READ memory access.
+==19830==Hint: address points to the zero page.
+    #0 0x10b95580e in get_path+0x8e (minishell:x86_64+0x10000c80e)
+    #1 0x10b956fb4 in ms_exec+0x84 (minishell:x86_64+0x10000dfb4)
+    #2 0x10b95682b in ms_exec_class+0x5cb (minishell:x86_64+0x10000d82b)
+    #3 0x10b9578f9 in ms_redir_exec+0x819 (minishell:x86_64+0x10000e8f9)
+    #4 0x10b957079 in ms_exec_loop+0x49 (minishell:x86_64+0x10000e079)
+    #5 0x10b95a953 in loop_shell+0x3b3 (minishell:x86_64+0x100011953)
+    #6 0x10b95ab3b in main+0xab (minishell:x86_64+0x100011b3b)
+    #7 0x112b164fd in start+0x1cd (dyld:x86_64+0x54fd)

@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 15:53:13 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/04/30 15:18:58 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/05 17:43:30 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char	**split_var(char *str)
 	int		nb_wd;
 
 	nb_wd = count_wd_var(str);
-	printf("%d nb_wd\n", nb_wd);
+	//printf("%d nb_wd\n", nb_wd);
 	dest = (char **)malloc ((nb_wd + 1) * sizeof(char *));
 	if (!dest)
 		return (0);

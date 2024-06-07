@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:52:31 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/04 15:04:17 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/07 13:53:47 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,14 @@ void	loop_shell(t_params *para, t_env *lstenv, t_put *put, t_data *data)
 		if (input != NULL)
 		{
 			init_data(&para, &put, &data);
-			add_history(input);
+			if (ft_strstr(input, "<<") == NULL)
+				add_history(input);
 			error = set_para(&para, input, &lstenv, &put);
 			if (error == 0 && para->com[0] != NULL)
 			{
-				print_all(&para, &lstenv, &put);
+				//print_all(&para, &lstenv, &put);
 				add_var_status(&lstenv, ms_exec_loop(data, para, put, &lstenv));
-				if (ft_strequal(para->com[0], "exit") == 0 && printf("exit\n"))
+				if (ft_strequal(para->com[0], "exit") == 0)
 					exit(EXIT_SUCCESS);
 			}
 			else
@@ -68,8 +69,10 @@ int	main(int argc, char **argv, char **env)
 	t_env		*lstenv;
 	t_put		*put;
 	t_data		*data;
-	char		*input;
 
+	para = NULL;
+	put = NULL;
+	data = NULL;
 	if (argc > 1 && argv[1] == NULL)
 		exit(EXIT_FAILURE);
 	lstenv = set_env(env);
