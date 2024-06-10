@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 15:53:13 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/05 17:43:30 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/10 14:34:56 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	count_wd_var(char *str)
 
 	i = 0;
 	len = 0;
-	if (ft_isalnum(str[0]) == 1)
+	if (ft_isalnumm(str[0]) == 1)
 		len++;
 	while (str[i] != '\0')
 	{

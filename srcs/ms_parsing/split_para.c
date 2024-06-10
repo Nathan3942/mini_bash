@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:08:28 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/04 14:58:09 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/10 18:00:13 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	count_len(char *str, int *i)
 	int	len;
 
 	len = 0;
-	if (str[*i] == ' ')
+	while (str[*i] == ' ')
 		(*i)++;
 	if (ft_isalnumm(str[*i]) == 1)
 	{

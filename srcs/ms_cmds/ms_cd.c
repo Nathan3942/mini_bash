@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:48:37 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/07 14:49:51 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:01:51 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,19 +67,34 @@ static void	change_oldpwd(char *tmp, t_env **env)
 	}
 }
 
+char	*set_path(char **com, t_env **env)
+{
+	char	*path;
+	
+	if (com[1] == NULL)
+		path = recherche_env("$HOME", env);
+	else if (com[1][0] == '~')
+	{
+		if (com[1][1] == '\0')
+			path = recherche_env("$HOME", env);
+		else
+			path = ft_strjoin(recherche_env("$HOME", env), com[1] + 1);
+	}
+	else if (com[1][0] == '-' && com[1][1] == '\0')
+		path = recherche_env("$OLDPWD", env);
+	else
+		path = com[1];
+	return (path);
+}
+
 int	ms_cd(t_params *para, t_env **env)
 {
 	char	*tmp;
 	char	*path;
 
-	if (para->com[1] == NULL)
-		path = recherche_env("$HOME", env);
-	else if ((para->com[1][0] == '~' && para->com[1][1] == '\0'))
-		path = recherche_env("$HOME", env);
-	else if (para->com[1][0] == '-' && para->com[1][1] == '\0')
-		path = recherche_env("$OLDPWD", env);
-	else
-		path = para->com[1];
+	path = set_path(para->com, env);
+	if (access(path, F_OK) != 0)
+		printf("minishell: cd: %s: No such file or directory\n", path);
 	if (chdir(path) == 0)
 	{
 		tmp = change_pwd(env);
@@ -89,7 +104,6 @@ int	ms_cd(t_params *para, t_env **env)
 			if (para->com[1][0] == '-' && para->com[1][1] == '\0')
 				ms_pwd();
 		}
-		//print_env(env);
 		return (0);
 	}
 	return (-1);

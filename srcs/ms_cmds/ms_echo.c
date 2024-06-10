@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 15:25:16 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/05/28 14:26:34 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/10 18:02:08 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ static void	print_echo(char *str)
 		{
 			if (str[i + 1])
 			{
-				ft_putchar_fd(str[i], STDOUT_FILENO);
+				ft_putchar_fd(str[i + 1], STDOUT_FILENO);
 				i += 2;
 			}
 			else
 			{
-				ft_putchar_fd(str[i], STDOUT_FILENO);
+				//ft_putchar_fd(str[i], STDOUT_FILENO);
 				break ;
 			}
 		}
@@ -45,6 +45,7 @@ int	ms_echo(t_params *para)
 	int	i;
 
 	i = 1;
+	printf("ECHOOOOO\n");
 	if (ft_strstrbool(para->com[1], "-n") == 0)
 		i++;
 	while (para->com[i] != NULL)

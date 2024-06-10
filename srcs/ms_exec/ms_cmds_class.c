@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 23:17:22 by ichpakov          #+#    #+#             */
-/*   Updated: 2024/06/07 15:56:44 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/10 18:11:49 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	echo_checker(char **cmd)
 	i = 1;
 	if (!ft_strcmp(cmd[0], "echo"))
 		return (0);
-	while (ft_strcmp(cmd[i], "-n"))
+	while (ft_strequal(cmd[i], "-n"))
 		i++;
 	if (cmd[i][0] == '-' && cmd[i][1] == '\0')
 		return (0);
