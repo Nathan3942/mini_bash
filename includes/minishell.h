@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:51:36 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/11 15:07:56 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:34:04 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void	ms_output(t_data *data, t_put *puts, int rdr);
 void	close_file(int fd);
 int		open_file(char *file, int in_or_out);
 char	*get_path(char *cmd, char **env);
+int		ms_mycmds(t_params *cmds);
 char	**get_env(t_env **env);
 
 //utils

@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 23:17:22 by ichpakov          #+#    #+#             */
-/*   Updated: 2024/06/11 15:07:27 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/11 17:42:41 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,26 @@ int	ms_exec_class(t_params *cmds, t_env **env, t_data **data)
 		return (ms_env(env));
 	else if (ft_strequal(cmds->com[0], "exit") == 0)
 		ms_exit(cmds, env, data);
-	else
-		ms_exec(cmds, get_env(env));
+	// else
+	// 	ms_exec(cmds, get_env(env));
+	return (1);
+}
+
+int	ms_mycmds(t_params *cmds)
+{
+	if (ft_strequal(cmds->com[0], "echo") == 0)
+		return (0);
+	else if (ft_strequal(cmds->com[0], "cd") == 0)
+		return (0);
+	else if (ft_strequal(cmds->com[0], "pwd") == 0)
+		return (0);
+	else if (ft_strequal(cmds->com[0], "export") == 0)
+		return (0);
+	else if (ft_strequal(cmds->com[0], "unset") == 0)
+		return (0);
+	else if (ft_strequal(cmds->com[0], "env") == 0)
+		return (0);
+	else if (ft_strequal(cmds->com[0], "exit") == 0)
+		return (0);
 	return (1);
 }
