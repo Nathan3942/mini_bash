@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 05:37:13 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/05/29 13:34:07 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/11 10:45:08 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	set_put(t_put **put, t_params **para)
 		i++;
 	}
 }
+// && head_para->com[i][1] == '\0'
 
 void	set_enum(t_params **para)
 {

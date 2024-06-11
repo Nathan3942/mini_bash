@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 23:17:22 by ichpakov          #+#    #+#             */
-/*   Updated: 2024/06/10 18:11:49 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/11 15:07:27 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static int	echo_checker(char **cmd)
 	int	i;
 
 	i = 1;
-	if (!ft_strcmp(cmd[0], "echo"))
+	if (ft_strequal(cmd[0], "echo") != 0)
 		return (0);
-	while (ft_strequal(cmd[i], "-n"))
+	while (ft_strequal(cmd[i], "-n") == 0)
 		i++;
 	if (cmd[i][0] == '-' && cmd[i][1] == '\0')
 		return (0);
@@ -78,29 +78,26 @@ char	**get_env(t_env **env)
 
 int	ms_exec_class(t_params *cmds, t_env **env, t_data **data)
 {
-	if (ft_strequal(cmds->com[0], "echo") == 0 && cmds->com[1] != NULL)
+	if (ft_strequal(cmds->com[0], "echo") == 0)
 	{
-		if (cmds->com[1][0] == '-')
-		{
-			if (echo_checker(cmds->com) == 0)
-				return (exec_error(3));
-			else
-				ms_echo(cmds);
-		}
+		if (echo_checker(cmds->com) == 0)
+			return (exec_error(3));
+		else
+			return (ms_echo(cmds));
 	}
-	if (ft_strequal(cmds->com[0], "cd") == 0)
-		ms_cd(cmds, env);
+	else if (ft_strequal(cmds->com[0], "cd") == 0)
+		return (ms_cd(cmds, env));
 	else if (ft_strequal(cmds->com[0], "pwd") == 0)
-		ms_pwd();
+		return (ms_pwd());
 	else if (ft_strequal(cmds->com[0], "export") == 0)
-		ms_export(cmds, env);
+		return (ms_export(cmds, env));
 	else if (ft_strequal(cmds->com[0], "unset") == 0)
-		ms_unset(cmds, env);
+		return (ms_unset(cmds, env));
 	else if (ft_strequal(cmds->com[0], "env") == 0)
-		ms_env(env);
+		return (ms_env(env));
 	else if (ft_strequal(cmds->com[0], "exit") == 0)
 		ms_exit(cmds, env, data);
 	else
 		ms_exec(cmds, get_env(env));
-	return (0);
+	return (1);
 }

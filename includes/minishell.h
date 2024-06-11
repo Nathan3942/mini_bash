@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:51:36 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/05 17:52:33 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/11 15:07:56 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int		ms_unset(t_params *para, t_env **env);
 int		set_para(t_params **param, char *input, t_env **env, t_put **put);
 void	set_put(t_put **put, t_params **para);
 // char	*heredoc(char *exit);
-void	ft_doc(t_params **para, t_env **env);
+void	ft_doc(t_params **para, t_env **env, t_put **put);
 void	set_var(t_params **para, t_env **env);
 void	set_enum(t_params **para);
 char	**set_cote(char **input);
@@ -108,7 +108,6 @@ void	ms_output(t_data *data, t_put *puts, int rdr);
 void	close_file(int fd);
 int		open_file(char *file, int in_or_out);
 char	*get_path(char *cmd, char **env);
-
 char	**get_env(t_env **env);
 
 //utils

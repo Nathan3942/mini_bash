@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 16:11:22 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/05 17:49:09 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/11 15:00:22 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	count_com(t_params *para, t_put *put)
 	{
 		if (para->com[i][0] != '<' && para->com[i][0] != '>')
 		{
-			if (ft_strstrbool(para->com[i], put->input) == 1
-				&& ft_strstrbool(para->com[i], put->output) == 1)
+			if ((ft_strstrbool(para->com[i], put->output) == 1
+					&& ft_strstrbool(para->com[i], put->input) == 1))
 				z++;
 		}
 		i++;
@@ -32,21 +32,19 @@ int	count_com(t_params *para, t_put *put)
 	return (z);
 }
 
-char	**set_com(t_params *para, int len, t_put *put)
+char	**set_com(t_params *para, t_put *put, char **com)
 {
-	char		**com;
 	int			i;
 	int			z;
 
-	com = (char **)malloc ((len + 1) * sizeof(char *));
 	i = 0;
 	z = 0;
 	while (para->com[i] != NULL)
 	{
 		if (para->com[i][0] != '<' && para->com[i][0] != '>')
 		{
-			if (ft_strstrbool(para->com[i], put->input) == 1
-				&& ft_strstrbool(para->com[i], put->output) == 1)
+			if ((ft_strstrbool(para->com[i], put->output) == 1
+					&& ft_strstrbool(para->com[i], put->input) == 1))
 			{
 				if (para->com[i][0] == '\"' || para->com[i][0] == '\'')
 					com[z] = ft_strdup_quote(para->com[i]);
@@ -70,7 +68,8 @@ void	refactor_com(t_params *para, t_put *put)
 	while (para != NULL)
 	{
 		z = count_com(para, put);
-		com = set_com(para, z, put);
+		com = (char **)malloc ((z + 1) * sizeof(char *));
+		com = set_com(para, put, com);
 		para->com = com;
 		if (para->next != NULL)
 			para->out_red = PIPE;
@@ -99,7 +98,7 @@ void	init_com(t_params **para, char **com, t_put **put, t_env **env)
 	head->com[i] = NULL;
 	set_put(put, para);
 	set_enum(para);
-	ft_doc(para, env);
+	ft_doc(para, env, put);
 	set_var(para, env);
 	set_varbis(para, env);
 }
@@ -110,7 +109,6 @@ int	set_para(t_params **param, char *input, t_env **env, t_put **put)
 	t_params	*para;
 	int			i;
 
-	
 	inp_sep = split_para(input);
 	if (ft_error(inp_sep) != 0)
 		return (ft_error(inp_sep));

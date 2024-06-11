@@ -6,7 +6,7 @@
 #    By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/02 04:50:58 by njeanbou          #+#    #+#              #
-#    Updated: 2024/06/10 17:13:04 by njeanbou         ###   ########.fr        #
+#    Updated: 2024/06/11 14:00:50 by njeanbou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ OBJS = ${SRCS:.c=.o}
 
 CC = gcc
 
-CFLAGS = -Werror -Wextra -Wall -fsanitize=address -static-libsan -g	
+CFLAGS = -Werror -Wextra -Wall -fsanitize=address -static-libsan -g
 
 #-fsanitize=address -static-libsan
 RM = rm -rf

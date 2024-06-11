@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:48:37 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/10 17:01:51 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:50:55 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	change_oldpwd(char *tmp, t_env **env)
 char	*set_path(char **com, t_env **env)
 {
 	char	*path;
-	
+
 	if (com[1] == NULL)
 		path = recherche_env("$HOME", env);
 	else if (com[1][0] == '~')

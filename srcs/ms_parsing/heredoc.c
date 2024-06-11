@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 04:04:52 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/10 15:06:31 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:34:47 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static char	*heredoc(char *exit, t_env **env)
 	return (res);
 }
 
-void	ft_doc(t_params **para, t_env **env)
+void	ft_doc(t_params **para, t_env **env, t_put **put)
 {
 	t_params	*head;
 	char		*tmp;
@@ -76,10 +76,10 @@ void	ft_doc(t_params **para, t_env **env)
 				exit = head->com[i + 1];
 			i++;
 		}
+		(*put)->input = exit;
 		tmp = heredoc(exit, env);
-		if (tmp == NULL)
-			return ;
 		i = open(exit, O_WRONLY | O_CREAT | O_TRUNC, 0777);
-		ft_putstr_fd(tmp, i);
+		if (tmp != NULL)
+			ft_putstr_fd(tmp, i);
 	}
 }
