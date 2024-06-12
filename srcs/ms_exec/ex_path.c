@@ -6,13 +6,13 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:26:14 by ichpakov          #+#    #+#             */
-/*   Updated: 2024/06/11 16:29:24 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/12 17:58:51 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	ft_free_tab(char **tab)
+void	ft_free_tab(char **tab)
 {
 	size_t	i;
 

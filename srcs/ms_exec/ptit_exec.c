@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:02:34 by ichpakov          #+#    #+#             */
-/*   Updated: 2024/06/11 17:41:28 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:26:22 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,14 @@ void	ms_exec(t_params *cmds, char **env)
 	execve(path, s_cmd, env);
 	ft_putstr_fd("error: command not found: ", 2);
 	ft_putendl_fd(s_cmd[0], 2);
-	exit(0);
+	exit(2);
 }
 
 
 static int	ms_redir_exec(t_data *data, t_params *cmds, t_put *puts, t_env **env)
 {
 	int		status;
-	int		saved_stdin;
 
-	saved_stdin = dup(STDOUT_FILENO);
  	if (cmds->inp_red == entre1 || cmds->inp_red == entre2)
  		ms_input(data, puts);
  	if (cmds->out_red == PIPE)
@@ -39,47 +37,38 @@ static int	ms_redir_exec(t_data *data, t_params *cmds, t_put *puts, t_env **env)
  		if (pipe(data->p_fd) == -1)
  			return (exec_error(0));
  	}
-	if (ms_mycmds(cmds) == 0)
+	if ((cmds->inp_red != PIPE) && (cmds->out_red != PIPE) 
+		&& is_builded_cmd(cmds->com[0]))
 	{
-		if (cmds->out_red == PIPE)
- 		{
- 			if ((dup2(data->p_fd[1], STDOUT_FILENO) == -1 || close(data->p_fd[0]) == -1
-				|| close(data->p_fd[1]) == -1))
-    	        return(exec_error(0));
- 		}
-		else if (cmds->out_red == sortie1)
- 				ms_output(data, puts, 1);
+		if (cmds->out_red == sortie1)
+ 			ms_output(data, puts, 1);
  		else if (cmds->out_red == sortie2)
- 				ms_output(data, puts, 2);
-		ms_exec_class(cmds, env, &data);
-		dup2(saved_stdin, STDOUT_FILENO);
-		close(saved_stdin);
+ 			ms_output(data, puts, 2);
+		ms_exec_class(cmds, env, &data, puts);
 	}
-	else
-	{
- 		data->pid = fork();
- 		if (data->pid == 0)
- 		{
- 			if (cmds->out_red == PIPE)
- 			{
- 				if ((dup2(data->p_fd[1], STDOUT_FILENO) == -1 || close(data->p_fd[0]) == -1
+	else {
+		data->pid = fork();
+		if (data->pid == 0)
+		{
+			if (cmds->out_red == PIPE)
+			{
+				if ((dup2(data->p_fd[1], STDOUT_FILENO) == -1 || close(data->p_fd[0]) == -1
 					|| close(data->p_fd[1]) == -1))
-    	            return(exec_error(0));
- 			}
- 			else if (cmds->out_red == sortie1)
- 				ms_output(data, puts, 1);
- 			else if (cmds->out_red == sortie2)
- 				ms_output(data, puts, 2);
-			ms_exec(cmds, get_env(env));
- 			exec_error(2);
- 		}
-		waitpid(data->pid, &status, 0);
-	}
-	if (cmds->out_red == PIPE)
-	{
-		if (dup2(data->p_fd[0], STDIN_FILENO) == -1 || close(data->p_fd[0]) == -1
-				|| close(data->p_fd[1]) == -1)
-			return (exec_error(0));
+					return(exec_error(0));
+			}
+			else if (cmds->out_red == sortie1)
+				ms_output(data, puts, 1);
+			else if (cmds->out_red == sortie2)
+				ms_output(data, puts, 2);
+			ms_exec_class(cmds, env, &data, puts);
+			exit(0);
+		}
+		if (cmds->out_red == PIPE)
+		{
+			if (dup2(data->p_fd[0], STDIN_FILENO) == -1 || close(data->p_fd[0]) == -1
+					|| close(data->p_fd[1]) == -1)
+				return (exec_error(0));
+		}
 	}
 	return (WIFEXITED(status) && WEXITSTATUS(status));
 }
@@ -87,9 +76,7 @@ static int	ms_redir_exec(t_data *data, t_params *cmds, t_put *puts, t_env **env)
 static void	supp_heredoc(t_data *data, t_env **env, t_put *puts)
 {
 	char	**rm;
-	int		i;
 
-	i = 1;
 	rm = malloc (3 * sizeof(char *));
 	rm[0] = "rm";
 	rm[1] = puts->input;
@@ -115,6 +102,7 @@ int	ms_exec_loop(t_data *data, t_params *cmds, t_put *puts, t_env **env)
 		status = ms_redir_exec(data, t_cmds, puts, env); //renvoie l'etat du resultat 
 		t_cmds = t_cmds->next;
 	}
+	waitpid(data->pid, &status, 0);
 	dup2(saved_stdin, STDIN_FILENO);
 	close(saved_stdin);
 	if (cmds->inp_red == entre2)

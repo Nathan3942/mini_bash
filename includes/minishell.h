@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:51:36 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/11 16:34:04 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/12 20:03:37 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef struct s_data
 int		ms_cd(t_params *para, t_env **env);
 int		ms_echo(t_params *para);
 int		ms_env(t_env **env);
-void	ms_exit(t_params *para, t_env **env, t_data **data);
+void	ms_exit(t_params *para, t_env **env, t_data **data, t_put *put);
 int		ms_export(t_params *para, t_env **env);
 int		ms_pwd(void);
 int		ms_unset(t_params *para, t_env **env);
@@ -101,7 +101,7 @@ int		exec_error(int num);
 
 //exec
 int		ms_exec_loop(t_data *data, t_params *cmds, t_put *puts, t_env **env);
-int		ms_exec_class(t_params *cmds, t_env **env, t_data **data);
+int		ms_exec_class(t_params *cmds, t_env **env, t_data **data, t_put *puts);
 void	ms_exec(t_params *cmds, char **env);
 void	ms_input(t_data *data, t_put *puts);
 void	ms_output(t_data *data, t_put *puts, int rdr);
@@ -110,6 +110,8 @@ int		open_file(char *file, int in_or_out);
 char	*get_path(char *cmd, char **env);
 int		ms_mycmds(t_params *cmds);
 char	**get_env(t_env **env);
+void	ft_free_tab(char **tab);
+int		is_builded_cmd(char *cmd);
 
 //utils
 char	*clean_input(char *raw_input);
@@ -122,7 +124,7 @@ char	*ft_strjoin_sp(char const *s1, char *s2);
 char	**split_var(char *str);
 int		count_wd_var(char *str);
 char	*clean_var(char *var);
-void	free_all(t_params **para, t_put **put, t_data **data);
+void	free_all(t_params *para, t_put **put, t_data **data);
 t_env	*ft_lstlast_env(t_env *lst);
 void	ft_lstadd_back_env(t_env **lst, t_env *new);
 int		ft_lstsize_env(t_env *lst);

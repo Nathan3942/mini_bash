@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:41:27 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/05 17:36:27 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/12 20:04:02 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	free_env(t_env **env)
 {
 	if ((*env) != NULL)
 	{
-		// free((*env)->env_name);
-		// free((*env)->env_value);
+		free((*env)->env_name);
+		free((*env)->env_value);
 		free_env(&(*env)->next);
 		free(*env);
 		*env = NULL;
@@ -25,19 +25,21 @@ void	free_env(t_env **env)
 	return ;
 }
 
-void	ms_exit(t_params *para, t_env **env, t_data **data)
+void	ms_exit(t_params *para, t_env **env, t_data **data, t_put *put)
 {
-	//printf("EXIT\n");
+	
 	(*data)->exit = true;
 	if (para != NULL && para->com != NULL && para->com[1] != NULL)
 	{
-		//free_all(&para, &put);
+		printf("EXIT\n");
+		free_all(para, &put, data);
 		free_env(env);
 		exit(ft_atoi(para->com[1]));
 	}
 	else
 	{
-		//free_all(&para, &put);
+		printf("EXIT\n");
+		free_all(para, &put, data);
 		free_env(env);
 		exit(EXIT_SUCCESS);
 	}

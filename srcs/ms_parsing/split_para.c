@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 17:08:28 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/10 18:00:13 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:04:49 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,15 @@ static char	**split_arg(char *str, char **dest, int nb_wd)
 	{
 		len = count_len(str, &i);
 		dest[word] = (char *)malloc ((len + 1) * sizeof(char));
+		if (dest[word] == NULL)
+        {
+            while (word > 0)
+            {
+                free(dest[--word]);
+            }
+            free(dest);
+            return (NULL);
+        }
 		putword(dest[word++], str, i, len);
 		len = 0;
 	}
@@ -110,6 +119,11 @@ char	**split_para(char *input)
 		return (NULL);
 	dest = (char **)malloc ((nb_wd + 1) * sizeof(char *));
 	dest = split_arg(input, dest, nb_wd);
+	if (dest == NULL)
+    {
+        free(input);
+        return NULL;
+    }
 	free(input);
 	return (dest);
 }

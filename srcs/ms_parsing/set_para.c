@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 16:11:22 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/11 15:00:22 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:11:18 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	**set_com(t_params *para, t_put *put, char **com)
 	return (com);
 }
 
-void	refactor_com(t_params *para, t_put *put)
+void	refactor_com(t_params *para, t_put *put, char **inp_sep)
 {
 	char		**com;
 	int			z;
@@ -77,6 +77,7 @@ void	refactor_com(t_params *para, t_put *put)
 		if (para != NULL)
 			para->inp_red = PIPE;
 	}
+	ft_free_tab(inp_sep);
 }
 
 void	init_com(t_params **para, char **com, t_put **put, t_env **env)
@@ -111,7 +112,10 @@ int	set_para(t_params **param, char *input, t_env **env, t_put **put)
 
 	inp_sep = split_para(input);
 	if (ft_error(inp_sep) != 0)
+	{
+		//ft_free_tab(inp_sep);
 		return (ft_error(inp_sep));
+	}
 	para = *param;
 	init_com(&para, inp_sep, put, env);
 	para->next = NULL;
@@ -128,6 +132,6 @@ int	set_para(t_params **param, char *input, t_env **env, t_put **put)
 		i++;
 	}
 	para = *param;
-	refactor_com(para, *put);
+	refactor_com(para, *put, inp_sep);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 23:17:22 by ichpakov          #+#    #+#             */
-/*   Updated: 2024/06/11 17:42:41 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:24:21 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static int	echo_checker(char **cmd)
 	int	i;
 
 	i = 1;
-	if (ft_strequal(cmd[0], "echo") != 0)
+	if (!ft_strcmp(cmd[0], "echo"))
 		return (0);
-	while (ft_strequal(cmd[i], "-n") == 0)
+	while (ft_strcmp(cmd[i], "-n"))
 		i++;
 	if (cmd[i][0] == '-' && cmd[i][1] == '\0')
 		return (0);
@@ -76,7 +76,26 @@ char	**get_env(t_env **env)
 	return (ex_env);
 }
 
-int	ms_exec_class(t_params *cmds, t_env **env, t_data **data)
+int	is_builded_cmd(char *cmd)
+{
+	if (ft_strcmp("cd", cmd) == 0)
+		return (1);
+	if (ft_strcmp("echo", cmd) == 0)
+		return (1);
+	if (ft_strcmp("env", cmd) == 0)
+		return (1);
+	if (ft_strcmp("exit", cmd) == 0)
+		return (1);
+	if (ft_strcmp("export", cmd) == 0)
+		return (1);
+	if (ft_strcmp("pwd", cmd) == 0)
+		return (1);
+	if (ft_strcmp("unset", cmd) == 0)
+		return (1);
+	return (0);
+}
+
+int	ms_exec_class(t_params *cmds, t_env **env, t_data **data, t_put *puts)
 {
 	if (ft_strequal(cmds->com[0], "echo") == 0)
 	{
@@ -86,37 +105,21 @@ int	ms_exec_class(t_params *cmds, t_env **env, t_data **data)
 			return (ms_echo(cmds));
 	}
 	else if (ft_strequal(cmds->com[0], "cd") == 0)
-		return (ms_cd(cmds, env));
+		ms_cd(cmds, env);
 	else if (ft_strequal(cmds->com[0], "pwd") == 0)
-		return (ms_pwd());
+		ms_pwd();
 	else if (ft_strequal(cmds->com[0], "export") == 0)
-		return (ms_export(cmds, env));
+		ms_export(cmds, env);
 	else if (ft_strequal(cmds->com[0], "unset") == 0)
-		return (ms_unset(cmds, env));
+		ms_unset(cmds, env);
 	else if (ft_strequal(cmds->com[0], "env") == 0)
-		return (ms_env(env));
+		ms_env(env);
 	else if (ft_strequal(cmds->com[0], "exit") == 0)
-		ms_exit(cmds, env, data);
-	// else
-	// 	ms_exec(cmds, get_env(env));
-	return (1);
-}
-
-int	ms_mycmds(t_params *cmds)
-{
-	if (ft_strequal(cmds->com[0], "echo") == 0)
-		return (0);
-	else if (ft_strequal(cmds->com[0], "cd") == 0)
-		return (0);
-	else if (ft_strequal(cmds->com[0], "pwd") == 0)
-		return (0);
-	else if (ft_strequal(cmds->com[0], "export") == 0)
-		return (0);
-	else if (ft_strequal(cmds->com[0], "unset") == 0)
-		return (0);
-	else if (ft_strequal(cmds->com[0], "env") == 0)
-		return (0);
-	else if (ft_strequal(cmds->com[0], "exit") == 0)
-		return (0);
-	return (1);
+		ms_exit(cmds, env, data, puts);
+	else
+	{
+		ms_exec(cmds, get_env(env));
+		exec_error(2);
+	}
+	return (0);
 }

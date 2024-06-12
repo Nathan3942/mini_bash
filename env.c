@@ -3,49 +3,105 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-int main() {
-    int fd;
-    int stdout_backup;
+static char	**free_array(char **dest, int i)
+{
+	while (i > 0)
+	{
+		i--;
+		free(dest[i]);
+	}
+	free(dest);
+	return (0);
+}
 
-    // Sauvegarder le descripteur de fichier de la sortie standard
-    stdout_backup = dup(STDOUT_FILENO);
-    if (stdout_backup == -1) {
-        perror("dup");
-        exit(EXIT_FAILURE);
-    }
+static int	ft_count_words(char const *str, char c)
+{
+	int	i;
+	int	count;
 
-    // Ouvrir (ou créer) le fichier output.txt avec des permissions d'écriture
-    fd = open("output.txt", O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
-    if (fd == -1) {
-        perror("open");
-        exit(EXIT_FAILURE);
-    }
+	i = 0;
+	count = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == c)
+			i++;
+		else
+		{
+			count++;
+			while (str[i] && str[i] != c)
+				i++;
+		}
+	}
+	return (count);
+}
 
-    // Dupliquer le descripteur de fichier fd vers STDOUT_FILENO
-    if (dup2(fd, STDOUT_FILENO) == -1) {
-        perror("dup2");
-        close(fd);
-        exit(EXIT_FAILURE);
-    }
+static char	*ft_putword(char *word, char const *s, int i, int word_len)
+{
+	int	j;
 
-    // Fermer l'ancien descripteur de fichier car il n'est plus nécessaire
-    close(fd);
+	j = 0;
+	while (word_len > 0)
+	{
+		word[j] = s[i - word_len];
+		j++;
+		word_len--;
+	}
+	word[j] = '\0';
+	return (word);
+}
 
-    // Toutes les sorties suivantes vers stdout iront dans le fichier output.txt
-    printf("Ceci sera écrit dans le fichier output.txt\n");
+static char	**ft_split_words(char const *s, char c, char **dest, int num_words)
+{
+	int	i;
+	int	word;
+	int	word_len;
 
-    // Restaurer la sortie standard
-    if (dup2(stdout_backup, STDOUT_FILENO) == -1) {
-        perror("dup2");
-        close(stdout_backup);
-        exit(EXIT_FAILURE);
-    }
+	i = 0;
+	word = 0;
+	word_len = 0;
+	while (word < num_words)
+	{
+		while (s[i] && s[i] == c)
+			i++;
+		while (s[i] && s[i] != c)
+		{
+			i++;
+			word_len++;
+		}
+		dest[word] = (char *)malloc(sizeof(char) * (word_len + 1));
+		if (!dest[word])
+			return (free_array(dest, word));
+		ft_putword(dest[word], s, i, word_len);
+		word_len = 0;
+		word++;
+	}
+	dest[word] = 0;
+	return (dest);
+}
 
-    // Fermer le descripteur de fichier sauvegardé car il n'est plus nécessaire
-    close(stdout_backup);
+char	**ft_split(char const *s, char c)
+{
+	char			**dest;
+	unsigned int	num_words;
 
-    // Toutes les sorties suivantes vers stdout iront de nouveau dans le terminal
-    printf("Ceci sera écrit dans le terminal\n");
+	if (!s)
+		return (0);
+	num_words = ft_count_words(s, c);
+	dest = (char **)malloc(sizeof(char *) * (num_words + 1));
+	if (!dest)
+		return (0);
+	dest = ft_split_words(s, c, dest, num_words);
+	return (dest);
+}
 
+int main()
+{
+    char    *str = "lalalalala=lololooll";
+    char    **res;
+    int     i = 0;
+    
+    res = ft_split(str, '=');
+    while (res[i] != NULL)
+        printf("%s", res[i++]);
     return 0;
 }

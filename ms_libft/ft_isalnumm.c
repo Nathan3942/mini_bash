@@ -6,11 +6,11 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:57:32 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/07 16:32:01 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/12 17:56:57 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libc.h"
+#include "libft.h"
 
 int	ft_isalnumm(int c)
 {
