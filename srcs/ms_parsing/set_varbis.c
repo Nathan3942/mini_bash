@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:32:47 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/05/15 21:03:18 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:49:15 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ static void	varbis(char *var, t_env **env)
 	head = *env;
 	new_var = false;
 	line = var_split(var);
-	new = new_node(line[0], line[1], false);
 	while (head != NULL)
 	{
 		if (ft_strequal(head->env_name, line[0]) == 0)
@@ -86,8 +85,11 @@ static void	varbis(char *var, t_env **env)
 		head = head->next;
 	}
 	if (new_var == false)
+	{
+		new = new_node(line[0], line[1], false);	
 		ft_lstadd_back_env(env, new);
-	free(line);
+	}
+	ft_free_tab(line);
 }
 
 void	set_varbis(t_params **para, t_env **env)
@@ -102,6 +104,7 @@ void	set_varbis(t_params **para, t_env **env)
 		if ((*para)->com[0][i] == '=')
 		{
 			varbis((*para)->com[0], env);
+			free((*para)->com[0]);
 			(*para)->com[0] = NULL;
 			break ;
 		}

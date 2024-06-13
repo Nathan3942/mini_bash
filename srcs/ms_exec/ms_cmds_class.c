@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 23:17:22 by ichpakov          #+#    #+#             */
-/*   Updated: 2024/06/13 14:13:08 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:19:27 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,16 +97,6 @@ int	is_builded_cmd(char *cmd)
 
 int	ms_exec_class(t_params *cmds, t_env **env, t_data **data, t_put *puts)
 {
-	// if (ft_strequal(cmds->com[0], "echo") == 0 && cmds->com[1] != NULL)
-	// {
-	// 	if (cmds->com[1][0] == '-')
-	// 	{
-	// 		if (echo_checker(cmds->com) == 0)
-	// 			return (exec_error(3));
-	// 		else
-	// 			ms_echo(cmds);
-	// 	}
-	// }
 	if (ft_strequal(cmds->com[0], "echo") == 0)
 	{
 		if (echo_checker(cmds->com) == 0)

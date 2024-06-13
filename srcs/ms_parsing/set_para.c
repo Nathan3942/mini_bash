@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 16:11:22 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/13 13:43:39 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:29:58 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,7 @@ int	set_para(t_params **param, char *input, t_env **env, t_put **put)
 
 	inp_sep = split_para(input);
 	if (ft_error(inp_sep) != 0)
-	{
-		//ft_free_tab(inp_sep);
 		return (ft_error(inp_sep));
-	}
 	para = *param;
 	init_com(&para, inp_sep, put, env);
 	para->next = NULL;

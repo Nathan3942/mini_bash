@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 07:01:12 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/12 19:44:17 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:06:54 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,14 @@ t_env	*new_node(char *env_name, char *env_value, bool export)
 	t_env	*new;
 
 	new = (t_env *)malloc (sizeof(t_env));
-	new->env_name = ft_strdup(env_name);
-	new->env_value = ft_strdup(env_value);
+	if (env_name != NULL)
+		new->env_name = ft_strdup(env_name);
+	else
+		new->env_name = NULL;
+	if (env_name != NULL)
+		new->env_value = ft_strdup(env_value);
+	else
+		new->env_value = NULL;
 	new->is_exported = export;
 	new->next = NULL;
 	return (new);

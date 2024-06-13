@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:10:28 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/13 14:00:18 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:10:24 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,22 @@ static int	add_export(char *var, t_env **env)
 
 	head = *env;
 	new_var = false;
-	line = ft_split(var, '=');
-	new = new_node(line[0], line[1], true);
+	if (ft_strequal(var, "=") == 0)
+		line = ft_split(var, '=');
+	else
+	{
+		line = (char **)malloc(3 * sizeof(char *));
+		line[0] = ft_strdup(var);
+		line[1] = ft_strdup("");
+		line[2] = NULL;
+	}
 	mod_var(head, line, &new_var);
-	ft_free_tab(line);
 	if (new_var == false)
+	{
+		new = new_node(line[0], line[1], true);
 		ft_lstadd_back_env(env, new);
+	}
+	ft_free_tab(line);
 	return (EXIT_SUCCESS);
 }
 
