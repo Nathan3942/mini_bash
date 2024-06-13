@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:51:36 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/12 20:03:37 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:13:56 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char	**mid_var_env(char **split_str, t_env **env);
 int		exec_error(int num);
 
 //exec
-int		ms_exec_loop(t_data *data, t_params *cmds, t_put *puts, t_env **env);
+int		ms_exec_loop(t_data *data, t_params **cmds, t_put *puts, t_env **env);
 int		ms_exec_class(t_params *cmds, t_env **env, t_data **data, t_put *puts);
 void	ms_exec(t_params *cmds, char **env);
 void	ms_input(t_data *data, t_put *puts);
@@ -124,7 +124,7 @@ char	*ft_strjoin_sp(char const *s1, char *s2);
 char	**split_var(char *str);
 int		count_wd_var(char *str);
 char	*clean_var(char *var);
-void	free_all(t_params *para, t_put **put, t_data **data);
+void	free_all(t_params **para, t_put **put, t_data **data);
 t_env	*ft_lstlast_env(t_env *lst);
 void	ft_lstadd_back_env(t_env **lst, t_env *new);
 int		ft_lstsize_env(t_env *lst);

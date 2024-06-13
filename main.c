@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:52:31 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/12 20:14:22 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:14:01 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,14 @@ void	loop_shell(t_params *para, t_env *lstenv, t_put *put, t_data *data)
 			if (error == 0 && para->com[0] != NULL)
 			{
 				//print_all(&para, &lstenv, &put);
-				add_var_status(&lstenv, ms_exec_loop(data, para, put, &lstenv));
+				add_var_status(&lstenv, ms_exec_loop(data, &para, put, &lstenv));
 				// if (ft_strequal(para->com[0], "exit") == 0 && printf("exit\n"))
 				// 	exit(EXIT_SUCCESS);
 			}
 			else
 				print_error(error);
 			if (error == 0)
-				free_all(para, &put, &data);
+				free_all(&para, &put, &data);
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 04:41:08 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/05 17:52:42 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/13 14:42:38 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ char	**mid_var_env(char **split_str, t_env **env)
 			{
 				free(split_str[i]);
 				split_str[i] = ft_strdup(var);
+				free(var);
 			}
 		}
 		i++;
@@ -65,18 +66,23 @@ char	*mid_var(char *str, t_env **env)
 {
 	char	**split_str;
 	char	*var;
+	char	*tmp;
 	int		i;
 
 	split_str = split_var(str);
 	split_str = mid_var_env(split_str, env);
 	i = 0;
-	var = NULL;
+	var = ft_strdup("");
 	while (split_str[i] != NULL)
 	{
-		var = ft_strjoin(var, split_str[i]);
+		tmp = ft_strjoin(var, split_str[i]);
+		free(var);
+		var = ft_strdup(tmp);
+		free(tmp);
 		i++;
 	}
 	var = clean_var(var);
+	ft_free_tab(split_str);
 	return (var);
 }
 
@@ -99,7 +105,8 @@ static void	set_var_mid(t_params **para, t_env **env)
 			{
 				var = mid_var((*para)->com[i], env);
 				free((*para)->com[i]);
-				(*para)->com[i] = var;
+				(*para)->com[i] = ft_strdup(var);
+				free(var);
 				break ;
 			}
 			z++;

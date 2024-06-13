@@ -6,46 +6,39 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 09:33:51 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/12 20:23:48 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:09:21 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void free_para(t_params *para)
+void free_para(t_params **para)
 {
     t_params *current;
     t_params *next;
     int i;
 
-    if (!para)
+    if (!para || !*para)
         return;
 
-    current = para;
+    current = *para;
     while (current != NULL)
     {
         next = current->next;
-
-        // Libérer l'array com
         if (current->com)
         {
             i = 0;
             while (current->com[i])
             {
-				printf("%s\n", para->com[i]);
-                free(para->com[i]);
+                free((*para)->com[i]);
                 i++;
             }
-            free(para->com);
+            free((*para)->com);
         }
-
-        // Libérer le nœud actuel
         free(current);
-        
         current = next;
     }
-
-	para = NULL; // Optionnel : mettre le pointeur à NULL après libération
+	*para = NULL;
 }
 
 // void free_para(t_params **para)
@@ -98,7 +91,7 @@ void free_para(t_params *para)
 // 	free((*para));
 // }
 
-void	free_all(t_params *para, t_put **put, t_data **data)
+void	free_all(t_params **para, t_put **put, t_data **data)
 {
 	free_para(para);
 	if ((*put)->input != NULL)
@@ -107,4 +100,6 @@ void	free_all(t_params *para, t_put **put, t_data **data)
 		free((*put)->output);
 	free((*put));
 	free((*data));
+    // if (!(*data))
+    //     printf("data\n");
 }

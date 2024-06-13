@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 16:11:22 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/12 19:11:18 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/13 13:43:39 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	refactor_com(t_params *para, t_put *put, char **inp_sep)
 		z = count_com(para, put);
 		com = (char **)malloc ((z + 1) * sizeof(char *));
 		com = set_com(para, put, com);
+		ft_free_tab(para->com);
 		para->com = com;
 		if (para->next != NULL)
 			para->out_red = PIPE;
