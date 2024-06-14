@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ptit_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:02:34 by ichpakov          #+#    #+#             */
-/*   Updated: 2024/06/13 16:36:57 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/14 15:51:35 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ms_exec(t_params *cmds, char **env)
 	s_cmd = cmds->com;
 	path = get_path(s_cmd[0], env);
 	execve(path, s_cmd, env);
+	printf("ERROR\n");
 	ft_free_tab(env);
 	ft_putstr_fd("error: command not found: ", 2);
 	ft_putendl_fd(s_cmd[0], 2);

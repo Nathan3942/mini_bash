@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 10:01:24 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/07 15:17:30 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/14 15:32:50 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,11 @@ static int	error_heredoc(char **input)
 	return (0);
 }
 
-int	ft_error(char **input)
+static int error_red(char **input)
 {
 	int	i;
 
 	i = 0;
-	if (input == NULL)
-		return (3);
-	if (!input[0])
-		return (2);
-	if (input[0][0] == '<' || input[0][0] == '>' || input[0][0] == '|')
-		return (1);
 	while (input[i] != NULL)
 	{
 		if (input[i][0] == '<' || input[i][0] == '>' || input[i][0] == '|')
@@ -59,9 +53,24 @@ int	ft_error(char **input)
 		}
 		i++;
 	}
-	if (error_heredoc(input) == 1)
-		return (4);
 	return (0);
+}
+
+int	ft_error(char **input, bool for_free)
+{
+	int	res;
+
+	if (input == NULL || !input[0])
+		res = 3;
+	else if (input[0][0] == '<' || input[0][0] == '>' || input[0][0] == '|')
+		res = 1;
+	else if (error_heredoc(input) == 1)
+		res = 4;
+	else
+		res = error_red(input);
+	if (for_free == true && res != 3)
+		ft_free_tab(input);
+	return (res);
 }
 
 void	print_error(int error)

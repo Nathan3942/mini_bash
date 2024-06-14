@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:48:37 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/11 14:50:55 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/14 17:27:24 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,13 @@ static char	*change_pwd(t_env **env)
 
 	head = *env;
 	tmp = recherche_env("$PWD", env);
-	//printf("%s    tmp\n", tmp);
 	while (head != NULL)
 	{
 		if (ft_strequal(head->env_name, "PWD") == 0)
 		{
 
 			path = getcwd(NULL, 0);
-			//printf("%s  %s    path\n", path, head->env_name);
+			free(head->env_value);
 			head->env_value = ft_strdup(path);
 			free(path);
 		}
@@ -70,6 +69,7 @@ static void	change_oldpwd(char *tmp, t_env **env)
 char	*set_path(char **com, t_env **env)
 {
 	char	*path;
+	char	*tmp;
 
 	if (com[1] == NULL)
 		path = recherche_env("$HOME", env);
@@ -78,12 +78,16 @@ char	*set_path(char **com, t_env **env)
 		if (com[1][1] == '\0')
 			path = recherche_env("$HOME", env);
 		else
-			path = ft_strjoin(recherche_env("$HOME", env), com[1] + 1);
+		{
+			tmp = recherche_env("$HOME", env);
+			path = ft_strjoin(tmp, com[1] + 1);
+			free(tmp);
+		}
 	}
 	else if (com[1][0] == '-' && com[1][1] == '\0')
 		path = recherche_env("$OLDPWD", env);
 	else
-		path = com[1];
+		path = ft_strdup(com[1]);
 	return (path);
 }
 
@@ -104,7 +108,10 @@ int	ms_cd(t_params *para, t_env **env)
 			if (para->com[1][0] == '-' && para->com[1][1] == '\0')
 				ms_pwd();
 		}
+		free(tmp);
+		free(path);
 		return (0);
 	}
+	free(path);
 	return (-1);
 }

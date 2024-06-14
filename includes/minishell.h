@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 15:51:36 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/13 15:13:56 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/14 15:50:30 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ int		count_quote(char *str, int *i);
 int		count_red(char *str, int *i);
 int		red_len(char *str, int *i);
 int		quote_len(char *str, int *i);
-int		ft_error(char **input);
+int		ft_error(char **input, bool for_free);
+void    free_error(t_params **para, t_put **put, t_data **data);
 void	print_error(int error);
 void	set_varbis(t_params **para, t_env **env);
 char	*mid_var(char *str, t_env **env);

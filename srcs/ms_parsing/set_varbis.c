@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_varbis.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:32:47 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/13 15:49:15 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/14 17:12:31 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,20 +95,28 @@ static void	varbis(char *var, t_env **env)
 void	set_varbis(t_params **para, t_env **env)
 {
 	int	i;
+	int	z;
 
-	if ((*para)->com[1] == NULL && (*para)->com[0][0] == '=')
-		return ;
 	i = 0;
-	while ((*para)->com[0] != NULL && (*para)->com[0][i])
+	z = 0;
+	while ((*para)->com[z] != NULL && (*para)->com[z][0] != '\0')
 	{
-		if ((*para)->com[0][i] == '=')
-		{
-			varbis((*para)->com[0], env);
-			free((*para)->com[0]);
-			(*para)->com[0] = NULL;
+		if (ft_strstr((*para)->com[z], "=") == NULL)
 			break ;
+		if ((*para)->com[z + 1] == NULL && (*para)->com[z][0] == '=')
+			return ;
+		while ((*para)->com[z] != NULL && (*para)->com[z][i] != '\0')
+		{
+			if ((*para)->com[z][i] == '=')
+			{
+				varbis((*para)->com[z], env);
+				free((*para)->com[z]);
+				(*para)->com[z] = NULL;
+				break ;
+			}
+			i++;
 		}
-		i++;
+		z++;
 	}
 	return ;
 }

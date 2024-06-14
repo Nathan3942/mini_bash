@@ -1,2 +1,2 @@
-/home/njeanbou/42/mini_bash
+/home/vboxuser/42/minishell
 [?2004hminishell$ ^C[?2004l

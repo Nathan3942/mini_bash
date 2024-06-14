@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:10:28 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/13 16:10:24 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/14 16:25:10 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	add_export(char *var, t_env **env)
 
 	head = *env;
 	new_var = false;
-	if (ft_strequal(var, "=") == 0)
+	if (ft_strstr(var, "=") != NULL)
 		line = ft_split(var, '=');
 	else
 	{
