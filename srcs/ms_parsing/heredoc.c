@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 04:04:52 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/14 14:42:14 by vboxuser         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:34:47 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,57 +33,27 @@ char	*ft_strdup_nl(const char *s1)
 	return (dup);
 }
 
-static char	*update_doctmp(char *doc, char **doctmp, t_env **env)
-{
-	char	*docbis;
-	char	*var_tmp;
-	
-	docbis = NULL;
-	if (ft_strstr(doc, "$") != NULL)
-	{
-		var_tmp = ft_strdup(doc);
-		free(doc);
-		doc = mid_var(var_tmp, env);
-		free(var_tmp);
-	}
-	if (ft_strequal(*doctmp, "") == 0)
-	{
-		free(*doctmp);
-		*doctmp = ft_strdup(doc);
-	}
-	else
-	{
-		docbis = ft_strdup(*doctmp);
-		free(*doctmp);
-		*doctmp = ft_strjoin_c(docbis, doc, '\n');
-		free(docbis);
-	}
-	free(doc);
-	return (*doctmp);
-}
-
-
 static char	*heredoc(char *exit, t_env **env)
 {
 	char	*doctmp;
 	char	*res;
 	char	*doc;
 
-	doctmp = ft_strdup("");
+	doctmp = NULL;
 	res = NULL;
 	while (1)
 	{
 		doc = readline("heredoc> ");
 		if (ft_strequal(doc, exit) == 0)
 		{
-			free(doc);
 			if (doctmp == NULL)
 				return (res);
 			res = ft_strdup_nl(doctmp);
 			free(doctmp);
 			break ;
 		}
-		update_doctmp(doc, &doctmp, env);
+		doc = mid_var(doc, env);
+		doctmp = ft_strjoin_c(doctmp, doc, '\n');
 	}
 	return (res);
 }
@@ -106,11 +76,10 @@ void	ft_doc(t_params **para, t_env **env, t_put **put)
 				exit = head->com[i + 1];
 			i++;
 		}
-		(*put)->input = ft_strdup(exit);
+		(*put)->input = exit;
 		tmp = heredoc(exit, env);
 		i = open(exit, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		if (tmp != NULL)
 			ft_putstr_fd(tmp, i);
-		free(tmp);
 	}
 }

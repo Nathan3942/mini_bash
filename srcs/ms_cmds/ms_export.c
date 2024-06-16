@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 17:10:28 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/14 16:25:10 by vboxuser         ###   ########.fr       */
+/*   Updated: 2024/05/28 14:26:50 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,22 +58,11 @@ static int	add_export(char *var, t_env **env)
 
 	head = *env;
 	new_var = false;
-	if (ft_strstr(var, "=") != NULL)
-		line = ft_split(var, '=');
-	else
-	{
-		line = (char **)malloc(3 * sizeof(char *));
-		line[0] = ft_strdup(var);
-		line[1] = ft_strdup("");
-		line[2] = NULL;
-	}
+	line = ft_split(var, '=');
+	new = new_node(line[0], line[1], true);
 	mod_var(head, line, &new_var);
 	if (new_var == false)
-	{
-		new = new_node(line[0], line[1], true);
 		ft_lstadd_back_env(env, new);
-	}
-	ft_free_tab(line);
 	return (EXIT_SUCCESS);
 }
 

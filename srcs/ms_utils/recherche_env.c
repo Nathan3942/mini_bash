@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 04:52:22 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/13 14:45:01 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/05 17:44:51 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@ char	*recherche_env(char *str, t_env **env)
 	{
 		if (ft_strequal(head->env_name, str + 1) == 0)
 		{
-			return (ft_strdup(head->env_value));
+			//printf("%s\n", head->env_name);
+			return (head->env_value);
 		}
 		head = head->next;
 	}
-	return (ft_strdup(";\0"));
+	return (";\0");
 }
 
 char	*clean_var(char *var)
@@ -52,6 +53,5 @@ char	*clean_var(char *var)
 		i++;
 	}
 	new[len] = '\0';
-	free(var);
 	return (new);
 }

@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 05:37:13 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/13 14:54:19 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/11 10:45:08 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	set_put(t_put **put, t_params **para)
 	while (head_para->com[i] != NULL && head_para->com[i + 1] != NULL)
 	{
 		if (head_para->com[i][0] == '>')
-			head_put->output = ft_strdup(head_para->com[i + 1]);
+			head_put->output = head_para->com[i + 1];
 		else if (head_para->com[i][0] == '<' && head_para->com[i][1] == '\0')
-			head_put->input = ft_strdup(head_para->com[i + 1]);
+			head_put->input = head_para->com[i + 1];
 		i++;
 	}
 }

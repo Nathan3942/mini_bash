@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 16:11:22 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/14 14:56:31 by vboxuser         ###   ########.fr       */
+/*   Updated: 2024/06/12 23:00:22 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	count_com(t_params *para, t_put *put)
 	{
 		if (para->com[i][0] != '<' && para->com[i][0] != '>')
 		{
-			if ((ft_strequal(para->com[i], put->output) == 1
-					&& ft_strequal(para->com[i], put->input) == 1))
+			if ((ft_strstrbool(para->com[i], put->output) == 1
+					&& ft_strstrbool(para->com[i], put->input) == 1))
 				z++;
 		}
 		i++;
@@ -43,8 +43,8 @@ char	**set_com(t_params *para, t_put *put, char **com)
 	{
 		if (para->com[i][0] != '<' && para->com[i][0] != '>')
 		{
-			if ((ft_strequal(para->com[i], put->output) == 1
-					&& ft_strequal(para->com[i], put->input) == 1))
+			if ((ft_strstrbool(para->com[i], put->output) == 1
+					&& ft_strstrbool(para->com[i], put->input) == 1))
 			{
 				if (para->com[i][0] == '\"' || para->com[i][0] == '\'')
 					com[z] = ft_strdup_quote(para->com[i]);
@@ -112,8 +112,11 @@ int	set_para(t_params **param, char *input, t_env **env, t_put **put)
 	int			i;
 
 	inp_sep = split_para(input);
-	if (ft_error(inp_sep, false) != 0)
-		return (ft_error(inp_sep, true));
+	if (ft_error(inp_sep) != 0)
+	{
+		//ft_free_tab(inp_sep);
+		return (ft_error(inp_sep));
+	}
 	para = *param;
 	init_com(&para, inp_sep, put, env);
 	para->next = NULL;

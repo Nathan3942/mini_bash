@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:52:31 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/14 16:49:51 by vboxuser         ###   ########.fr       */
+/*   Updated: 2024/06/12 23:01:53 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	loop_shell(t_params *para, t_env *lstenv, t_put *put, t_data *data)
 
 	while (1)
 	{
+		input = NULL;
 		input = get_input();
 		if (input != NULL)
 		{
@@ -50,16 +51,13 @@ void	loop_shell(t_params *para, t_env *lstenv, t_put *put, t_data *data)
 			if (error == 0 && para->com[0] != NULL)
 			{
 				//print_all(&para, &lstenv, &put);
-				add_var_status(&lstenv, ms_exec_loop(data, &para, put, &lstenv));
-			}
-			if (error != 0)
-			{
-				print_error(error);
-				free_error(&para, &put, &data);
-				if (error != 1 && error != 4 && error != 0)
-					free(input);
+				add_var_status(&lstenv, ms_exec_loop(data, para, put, &lstenv));
+				// if (ft_strequal(para->com[0], "exit") == 0 && printf("exit\n"))
+				// 	exit(EXIT_SUCCESS);
 			}
 			else
+				print_error(error);
+			if (error == 0)
 				free_all(&para, &put, &data);
 		}
 	}

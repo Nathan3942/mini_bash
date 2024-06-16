@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 04:41:08 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/14 14:37:15 by vboxuser         ###   ########.fr       */
+/*   Updated: 2024/06/12 23:09:32 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ char	**mid_var_env(char **split_str, t_env **env)
 			{
 				free(split_str[i]);
 				split_str[i] = ft_strdup(var);
-				free(var);
 			}
 		}
 		i++;
@@ -66,23 +65,19 @@ char	*mid_var(char *str, t_env **env)
 {
 	char	**split_str;
 	char	*var;
-	char	*tmp;
 	int		i;
 
 	split_str = split_var(str);
 	split_str = mid_var_env(split_str, env);
 	i = 0;
-	var = ft_strdup("");
+	var = NULL;
 	while (split_str[i] != NULL)
 	{
-		tmp = ft_strjoin(var, split_str[i]);
-		free(var);
-		var = ft_strdup(tmp);
-		free(tmp);
+		var = ft_strjoin(var, split_str[i]);
 		i++;
 	}
+	//ft_free_tab(split_str);
 	var = clean_var(var);
-	ft_free_tab(split_str);
 	return (var);
 }
 
