@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_varbis.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:32:47 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/05/15 21:03:18 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/14 17:12:31 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ static void	varbis(char *var, t_env **env)
 	head = *env;
 	new_var = false;
 	line = var_split(var);
-	new = new_node(line[0], line[1], false);
 	while (head != NULL)
 	{
 		if (ft_strequal(head->env_name, line[0]) == 0)
@@ -86,26 +85,38 @@ static void	varbis(char *var, t_env **env)
 		head = head->next;
 	}
 	if (new_var == false)
+	{
+		new = new_node(line[0], line[1], false);	
 		ft_lstadd_back_env(env, new);
-	free(line);
+	}
+	ft_free_tab(line);
 }
 
 void	set_varbis(t_params **para, t_env **env)
 {
 	int	i;
+	int	z;
 
-	if ((*para)->com[1] == NULL && (*para)->com[0][0] == '=')
-		return ;
 	i = 0;
-	while ((*para)->com[0] != NULL && (*para)->com[0][i])
+	z = 0;
+	while ((*para)->com[z] != NULL && (*para)->com[z][0] != '\0')
 	{
-		if ((*para)->com[0][i] == '=')
-		{
-			varbis((*para)->com[0], env);
-			(*para)->com[0] = NULL;
+		if (ft_strstr((*para)->com[z], "=") == NULL)
 			break ;
+		if ((*para)->com[z + 1] == NULL && (*para)->com[z][0] == '=')
+			return ;
+		while ((*para)->com[z] != NULL && (*para)->com[z][i] != '\0')
+		{
+			if ((*para)->com[z][i] == '=')
+			{
+				varbis((*para)->com[z], env);
+				free((*para)->com[z]);
+				(*para)->com[z] = NULL;
+				break ;
+			}
+			i++;
 		}
-		i++;
+		z++;
 	}
 	return ;
 }

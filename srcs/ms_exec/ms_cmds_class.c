@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_cmds_class.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 23:17:22 by ichpakov          #+#    #+#             */
-/*   Updated: 2024/06/12 19:24:21 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/14 15:54:41 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ static int	echo_checker(char **cmd)
 	int	i;
 
 	i = 1;
-	if (!ft_strcmp(cmd[0], "echo"))
+	if (ft_strequal(cmd[0], "echo") != 0)
 		return (0);
-	while (ft_strcmp(cmd[i], "-n"))
+	while (ft_strequal(cmd[i], "-n") == 0)
 		i++;
-	if (cmd[i][0] == '-' && cmd[i][1] == '\0')
+	if (cmd[i] && (cmd[i][0] == '-'))
 		return (0);
 	return (i);
 }
@@ -102,7 +102,7 @@ int	ms_exec_class(t_params *cmds, t_env **env, t_data **data, t_put *puts)
 		if (echo_checker(cmds->com) == 0)
 			return (exec_error(3));
 		else
-			return (ms_echo(cmds));
+			ms_echo(cmds);
 	}
 	else if (ft_strequal(cmds->com[0], "cd") == 0)
 		ms_cd(cmds, env);

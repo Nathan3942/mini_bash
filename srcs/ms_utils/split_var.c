@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 15:53:13 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/12 23:12:24 by vboxuser         ###   ########.fr       */
+/*   Updated: 2024/06/14 14:37:41 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ char	**split_var(char *str)
 	int		nb_wd;
 
 	nb_wd = count_wd_var(str);
+	//printf("%d nb_wd\n", nb_wd);
 	dest = (char **)malloc ((nb_wd + 1) * sizeof(char *));
 	if (!dest)
 		return (0);

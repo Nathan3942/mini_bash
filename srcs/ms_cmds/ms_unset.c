@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 18:03:09 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/05/28 14:31:14 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/13 14:06:16 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static int	unset_var(char *str, t_env **env)
 		head = head->next;
 	}
 	pre->next = head->next;
+	free(head->env_name);
+	free(head->env_value);
 	free(head);
 	return (EXIT_SUCCESS);
 }
