@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/24 16:32:52 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/07/02 16:30:14 by njeanbou         ###   ########.fr       */
+/*   Created: 2024/07/02 16:58:16 by ichpakov          #+#    #+#             */
+/*   Updated: 2024/07/02 18:14:25 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/minishell.h"
 
-char	*ft_strdup(const char *s1)
+void exec_signal(int signal)
 {
-	char	*dup;
-	size_t	len;
-	size_t	i;
-
-	len = ft_strlen(s1) + 1;
-	dup = (char *) malloc(len * sizeof(*s1));
-	i = 0;
-	if (dup == NULL)
-		return (NULL);
-	while (s1[i] != '\0')
+		if (signal == SIGINT)
 	{
-		dup[i] = s1[i];
-		i++;
+		ft_putchar_fd('\n', STDOUT_FILENO);
 	}
-	dup[i] = '\0';
-	return (dup);
+}
+
+void handler_signal(int signal)
+{
+    if (signal == SIGINT)
+    {
+        ft_putstr_fd("\n", STDOUT_FILENO);
+        rl_on_new_line();
+		//rl_replace_line("", 0);
+		rl_redisplay();
+    }
 }

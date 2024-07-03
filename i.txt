@@ -1,3 +1,4 @@
+i.txt
 includes
 main.c
 main.o
@@ -6,3 +7,4 @@ minishell
 ms_libft
 srcs
 test.txt
+ls

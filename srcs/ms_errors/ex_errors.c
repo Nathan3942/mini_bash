@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 23:33:35 by ichpakov          #+#    #+#             */
-/*   Updated: 2024/06/14 16:05:21 by vboxuser         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:09:55 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ int	ft_errors(char *str)
 int	exec_error(int num)
 {
 	if (num == 0)
-		return (0 * ft_errors("error 1 : fatal error\n"));
+		return (0 * ft_errors(MSG_FATAL));
 	if (num == 2)
-		return (0 * ft_errors("error 2 : ca a pas execute my J\n"));
+		return (0 * ft_errors(MSG_EXEC));
 	if (num == 3)
-		return (0 * ft_errors("error 3 : seul echo peut avoir un flag dans l'enoncer\n"));
+		return (0 * ft_errors(MSG_FLAGS));
 	if (num == 4)
-		return (0 * ft_errors("error 4 : too many arguments\n"));
+		return (0 * ft_errors(MSG_ARG));
 	else
-		return (0 * ft_errors("error 0 : fatal error\n"));
+		return (0 * ft_errors(MSG_FATAL));
 }

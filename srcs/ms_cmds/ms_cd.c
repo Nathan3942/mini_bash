@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ms_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:48:37 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/14 17:27:24 by vboxuser         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:48:46 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-// static void	print_env(t_env **env)
-// {
-// 	t_env	*heade;
-
-// 	heade = *env;
-// 	printf("\n\nEnvironnement :\n");
-// 	while (heade != NULL)
-// 	{
-// 		printf("%s=", heade->env_name);
-// 		printf("%s\n", heade->env_value);
-// 		heade = heade->next;
-// 	}
-// 	printf("\n\n\n");
-// }
 
 static char	*change_pwd(t_env **env)
 {
@@ -39,7 +24,6 @@ static char	*change_pwd(t_env **env)
 	{
 		if (ft_strequal(head->env_name, "PWD") == 0)
 		{
-
 			path = getcwd(NULL, 0);
 			free(head->env_value);
 			head->env_value = ft_strdup(path);

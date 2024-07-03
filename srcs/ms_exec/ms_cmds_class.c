@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 23:17:22 by ichpakov          #+#    #+#             */
-/*   Updated: 2024/06/14 15:54:41 by vboxuser         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:13:38 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int	ms_exec_class(t_params *cmds, t_env **env, t_data **data, t_put *puts)
 		ms_env(env);
 	else if (ft_strequal(cmds->com[0], "exit") == 0)
 		ms_exit(cmds, env, data, puts);
-	else
+	else if (execve_checker(cmds->com) == 1)
 	{
 		ms_exec(cmds, get_env(env));
 		exec_error(2);

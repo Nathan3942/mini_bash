@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 15:00:51 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/14 15:59:41 by vboxuser         ###   ########.fr       */
+/*   Updated: 2024/07/02 14:51:04 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ char	*clean_input(char *raw_input)
 	int		beg;
 	int		len;
 
-	if (raw_input == NULL || raw_input[0] == '\0')
+	if (raw_input == NULL)
 		return (NULL);
+	if (raw_input[0] == '\0')
+		return (" ");
 	len = ft_strlen(raw_input);
 	beg = 0;
 	while (raw_input[beg] == ' ' || raw_input[beg] == '\t')

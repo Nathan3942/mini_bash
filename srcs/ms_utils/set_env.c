@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 07:01:12 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/13 16:06:54 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:51:41 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_env	*set_env(char **env)
 	return (head);
 }
 
-void	add_var_status(t_env **env, int status)
+void	add_status(t_env **env, int status)
 {
 	t_env	*head;
 	t_env	*new;

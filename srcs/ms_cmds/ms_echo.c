@@ -6,7 +6,7 @@
 /*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 15:25:16 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/13 14:07:39 by njeanbou         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:49:05 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static void	print_echo(char *str)
 			}
 			else
 			{
-				//ft_putchar_fd(str[i], STDOUT_FILENO);
 				break ;
 			}
 		}

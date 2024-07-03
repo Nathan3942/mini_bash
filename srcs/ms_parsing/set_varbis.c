@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_varbis.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: njeanbou <njeanbou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:32:47 by njeanbou          #+#    #+#             */
-/*   Updated: 2024/06/14 17:12:31 by vboxuser         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:43:57 by njeanbou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static void	varbis(char *var, t_env **env)
 	}
 	if (new_var == false)
 	{
-		new = new_node(line[0], line[1], false);	
+		new = new_node(line[0], line[1], false);
 		ft_lstadd_back_env(env, new);
 	}
 	ft_free_tab(line);
